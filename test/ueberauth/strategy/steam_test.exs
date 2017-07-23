@@ -15,6 +15,7 @@ defmodule Ueberauth.Strategy.SteamTest do
        realname: "Sample Sample", steamid: "765309403423",
        timecreated: 452342342}
   @sample_response %{response: %{players: [@sample_user]}}
+  @optional_fields [:loccountrycode, :realname]
 
   describe "handle_request!" do
     test "redirects" do
@@ -171,6 +172,22 @@ defmodule Ueberauth.Strategy.SteamTest do
 
     test "credentials", %{conn: conn} do
       assert Steam.credentials(conn) == %Ueberauth.Auth.Credentials{}
+    end
+  end
+
+  describe "info retrievers fetch (nil optional fields)" do
+    setup do
+      conn = %{conn(:get, "http://example.com/path/callback") | private: %{steam_user: Map.drop(@sample_user, @optional_fields)}}
+      conn = Steam.handle_callback! conn
+
+      [conn: conn]
+    end
+
+    test "info", %{conn: conn} do
+      auth_info = %Ueberauth.Auth.Info{
+            image: "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/f3/f3dsf34324eawdasdas3rwe.jpg",
+            urls: %{Steam: "http://steamcommunity.com/id/sample/"}}
+      assert Steam.info(conn) == auth_info
     end
   end
 
