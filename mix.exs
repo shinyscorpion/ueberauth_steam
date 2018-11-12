@@ -54,7 +54,7 @@ defmodule UeberauthSteam.Mixfile do
       {:ueberauth, "~> 0.4"},
 
       # Testing
-      {:meck, "~> 0.8.4", only: :test},
+      {:meck, "~> 0.8.12", only: :test},
 
       # Code Maintenance
       {:credo, "~> 0.7", only: [:dev, :test]},
