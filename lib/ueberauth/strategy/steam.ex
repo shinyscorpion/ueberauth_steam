@@ -24,9 +24,8 @@ defmodule Ueberauth.Strategy.Steam do
   @doc ~S"""
   Handles the callback from Steam.
   """
-  def handle_callback!(conn) do
+  def handle_callback!(%{params: %{"openid.mode" => "id_res"}} = conn) do
     with \
-      %{"openid.mode" => "id_res"} <- conn.params,
       {:ok, %{"openid.claimed_id" => claimed_id}} <- check_authentication(conn.params),
       {:ok, steam_user_id} <- get_steam_user_id(claimed_id),
       {:ok, steam_user} <- get_steam_user(steam_user_id)
@@ -38,8 +37,11 @@ defmodule Ueberauth.Strategy.Steam do
       {:error, :invalid_user} ->
         set_errors!(conn, [error("invalid_user", "Invalid Steam user")])
       _ ->
-        set_errors!(conn, [error("invalid_response", "Invalid response received")])
+        set_errors!(conn, [error("invalid_response", "Invalid response")])
     end
+  end
+  def handle_callback!(conn) do
+    set_errors!(conn, [error("invalid_request", "Invalid request")])
   end
   
   @doc false
