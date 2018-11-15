@@ -14,7 +14,7 @@ defmodule UeberauthSteam.Mixfile do
 
       # Testing
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       dialyzer: [ignore_warnings: "dialyzer.ignore-warnings"],
 
       # Docs
