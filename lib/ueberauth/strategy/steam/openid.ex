@@ -10,7 +10,7 @@ defmodule Ueberauth.Strategy.Steam.OpenID do
   defp checkid_setup_query(realm, return_to) do
     %{
       "openid.mode" => "checkid_setup",
-      "openid.realm" => return_to,
+      "openid.realm" => realm,
       "openid.return_to" => return_to,
       "openid.ns" => @url_namespace,
       "openid.claimed_id" => @url_namespace <> "/identifier_select",
