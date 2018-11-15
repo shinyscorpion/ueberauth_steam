@@ -14,7 +14,7 @@ defmodule UeberauthSteam.Mixfile do
 
       # Testing
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       dialyzer: [ignore_warnings: "dialyzer.ignore-warnings"],
 
       # Docs
@@ -54,7 +54,7 @@ defmodule UeberauthSteam.Mixfile do
       {:ueberauth, "~> 0.4"},
 
       # Testing
-      {:meck, "~> 0.8.4", only: :test},
+      {:meck, "~> 0.8.12", only: :test},
 
       # Code Maintenance
       {:credo, "~> 0.7", only: [:dev, :test]},
